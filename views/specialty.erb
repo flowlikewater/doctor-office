@@ -1,0 +1,20 @@
+<h1><%= @specialty.name %></h1>
+
+<div class='doctor-list'>
+  <h3>List of doctors:</h3>
+  <% @doctors.each() do |doctor| %>
+    <a href='/specialty/<%= @specialty.id %>/<%= doctor.id %>'>
+      <h3>Name: <%= doctor.name %></h3>
+    </a>
+    <h3>Specialty: <%= doctor.specialty_id %></h3>
+    <h3>Id: <%= doctor.id %></h3>
+  <% end %>
+</div>
+
+<div class='add-doctor'>
+  <form action='/specialty/<%= @specialty.id %>' method='post'>
+    <label for='name'>Doctor's name</label>
+    <input type='name' id='name' name='name'>
+    <button type='submit'>Add Doctor</button>
+  </form>
+</div>

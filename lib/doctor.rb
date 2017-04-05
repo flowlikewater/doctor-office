@@ -3,6 +3,7 @@ class Doctor
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
     @id = attributes[:id]
+    @specialty_id = attributes.fetch(:specialty_id)
   end
 
   define_singleton_method(:all) do
@@ -10,7 +11,7 @@ class Doctor
     doctors = []
     returned_doctors.each() do |doctor|
       name = doctor.fetch('name')
-      specialty_id = doctor.fetch('specialty_id')
+      specialty_id = doctor.fetch('specialty_id').to_i()
       id = doctor.fetch('id').to_i()
       doctors.push(Doctor.new({:name => name, :id => id, :specialty_id => specialty_id}))
     end
@@ -18,12 +19,12 @@ class Doctor
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO doctor (name) VALUES ('#{@name}') RETURNING id;")
+    result = DB.exec("INSERT INTO doctor (name, specialty_id) VALUES ('#{@name}', '#{@specialty_id}') RETURNING id;")
     @id = result.first().fetch('id').to_i()
   end
 
   define_method(:==) do |another_doctor|
-    self.name == another_doctor.name && self.id == another_doctor.id
+    self.name == another_doctor.name && self.id == another_doctor.id && self.specialty_id == another_doctor.specialty_id
   end
 
   define_singleton_method(:find) do |targetid|
@@ -38,7 +39,7 @@ class Doctor
 
   define_method(:patients) do
     doctor_patients = []
-    patients = DB.exec("SELECT * FROM patient WHERE doctor_id = #{self.id()};")
+    patients = DB.exec("SELECT * FROM patient WHERE doctor_id = #{@id};")
     patients.each() do |patient|
       name = patient.fetch('name')
       birthdate = patient.fetch('birthdate')

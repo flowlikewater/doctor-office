@@ -20,14 +20,14 @@ describe(Doctor) do
 
   describe('#name') do
     it("returns the name of a doctor") do
-      test_doctor = Doctor.new(:name => 'pace')
+      test_doctor = Doctor.new(:name => 'pace', :specialty_id => 1)
       expect(test_doctor.name).to(eq('pace'))
     end
   end
 
   describe("#save") do
     it("returns an array of doctors") do
-      test_doctor = Doctor.new(:name => 'pace')
+      test_doctor = Doctor.new(:name => 'pace', :specialty_id => 1)
       test_doctor.save()
       expect(Doctor.all()).to(eq([test_doctor]))
     end
@@ -35,15 +35,15 @@ describe(Doctor) do
 
   describe('#==') do
     it('is the same doctor if they have the same name and id') do
-      test_doctor = Doctor.new(:name => 'pace')
-      test_doctor2 = Doctor.new(:name => 'pace')
+      test_doctor = Doctor.new(:name => 'pace', :specialty_id => 1)
+      test_doctor2 = Doctor.new(:name => 'pace', :specialty_id => 1)
       expect(test_doctor).to(eq(test_doctor2))
     end
   end
 
   describe(".find") do
     it('returns the doctor with a given id') do
-      test_doctor = Doctor.new(:name => 'pace')
+      test_doctor = Doctor.new(:name => 'pace', :specialty_id => 1)
       test_doctor.save()
       expect(Doctor.find(test_doctor.id())).to(eq(test_doctor))
     end
@@ -51,7 +51,7 @@ describe(Doctor) do
 
   describe("#patients") do
     it('returns a list of patients for a specific doctor') do
-      test_doctor = Doctor.new(:name => 'pace')
+      test_doctor = Doctor.new(:name => 'pace', :specialty_id => 1)
       test_doctor.save()
       test_patient = Patient.new({:name => "kevin", :birthdate => "1993-10-30", :doctor_id => test_doctor.id()})
       test_patient.save()
@@ -60,5 +60,7 @@ describe(Doctor) do
       expect(test_doctor.patients()).to(eq([test_patient, test_patient2]))
     end
   end
+
+
 
 end

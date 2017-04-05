@@ -29,7 +29,8 @@ class Specialty
 
   define_method(:doctors) do
     specialty_doctors = []
-    doctors = DB.exec("SELECT * FROM doctor WHERE specialty_id= #{@id};")
+    doctors = DB.exec("SELECT * FROM doctor WHERE specialty_id= #{@id} ORDER BY name;")
+
     doctors.each() do |doctor|
       name = doctor.fetch('name')
       id = doctor.fetch('id').to_i()

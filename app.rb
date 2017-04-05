@@ -40,3 +40,23 @@ post('/specialty/:id') do
   @doctors = @specialty.doctors()
   erb(:specialty)
 end
+
+get('/specialty/:id/:doctorid') do
+  @specialty_id = params.fetch("id").to_i()
+  @doctor_id = params.fetch("doctorid").to_i
+  @selected_doctor = Doctor.find(@doctor_id)
+  @patients = @selected_doctor.patients()
+  erb(:doctor)
+end
+
+post('/specialty/:id/:doctorid') do
+  @specialty_id = params.fetch("id").to_i()
+  @doctor_id = params.fetch("doctorid").to_i
+  name = params.fetch('name')
+  birthdate = params.fetch('birthdate')
+  new_patient = Patient.new({:name => name, :birthdate => birthdate, :doctor_id => @doctor_id})
+  new_patient.save()
+  @selected_doctor = Doctor.find(@doctor_id)
+  @patients = @selected_doctor.patients()
+  erb(:doctor)
+end

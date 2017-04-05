@@ -1,10 +1,13 @@
 <h1>Welcome to Doctor's Office</h1>
-<h3>Choose Specialty</h3>
+<h3>Choose Specialty:</h3>
 
+<ol>
 <% @specialties.each() do |specialty| %>
   <a href ='specialty/<%= specialty.id() %>'>
-    <h3> <%= specialty.name() %> </h3>
+    <h3> <li> <%= specialty.name() %> </li> </h3>
   </a>
 <% end %>
+</ol>
 
-<a href='/add_specialty'>Add Specialty</a>
+<hr>
+<a href='/add_specialty'><h3>Add Specialty</h3></a>

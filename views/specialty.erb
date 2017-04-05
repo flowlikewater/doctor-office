@@ -1,20 +1,30 @@
 <h1><%= @specialty.name %></h1>
+<h3><a href='/'>Choose another specialty</a></h3>
+
+<hr>
 
 <div class='doctor-list'>
   <h3>List of doctors:</h3>
-  <% @doctors.each() do |doctor| %>
-    <a href='/specialty/<%= @specialty.id %>/<%= doctor.id %>'>
-      <h3>Name: <%= doctor.name %></h3>
-    </a>
-    <h3>Specialty: <%= doctor.specialty_id %></h3>
-    <h3>Id: <%= doctor.id %></h3>
-  <% end %>
+  <ol>
+    <% @doctors.each() do |doctor| %>
+      <a href='/specialty/<%= @specialty.id %>/<%= doctor.id %>'>
+        <h3><li><%= doctor.name %></li></h3>
+        <h5>Number of patients: <%= doctor.patients.length %><h5>
+      </a>
+    <% end %>
+  </ol>
 </div>
 
+
+<hr>
 <div class='add-doctor'>
+  <h3> Add new doctor: </h3>
   <form action='/specialty/<%= @specialty.id %>' method='post'>
     <label for='name'>Doctor's name</label>
-    <input type='name' id='name' name='name'>
-    <button type='submit'>Add Doctor</button>
+    <input type='name' id='name' name='name' class='form-control'>
+    <br>
+    <button type='submit' class='btn-success'>Add Doctor</button>
+    <br>
+    <br>
   </form>
 </div>

@@ -1,0 +1,24 @@
+<h1><%= @selected_doctor.name %></h1>
+<h3><a href='/specialty/<%= @specialty_id %>'>Choose another doctor</a></h3>
+<hr>
+
+<h3>List of patients:</h3>
+<div class='patient-list'>
+  <% @patients.each() do |patient| %>
+    <h3> <%= patient.name %> </h3>
+    <h5> Birthdate: <%= patient.birthdate %> </h5>
+  <% end %>
+</div>
+
+<hr>
+<div>
+  <h3> Add new patient: </h3>
+  <form action='/specialty/<%= @specialty_id %>/<%= @doctor_id %>' method='post'>
+    <label for='name'>Patient Name</label>
+    <input name='name' id='name' type='text' class='form-control'>
+    <label for='birthdate'>Birthdate</label>
+    <input name='birthdate' id='birthdate' type='date' class='form-control'>
+    <br>
+    <button type='submit' class='btn-success'>Add Patient</button>
+  </form>
+</div>
